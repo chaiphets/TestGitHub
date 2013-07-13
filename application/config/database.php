@@ -49,8 +49,8 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'freelancer';
-$db['default']['password'] = 'hifour';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'admin';
 $db['default']['database'] = 'rabbiters_framework';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
