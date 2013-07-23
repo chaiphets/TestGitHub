@@ -22,11 +22,12 @@ class Authentication extends CI_Controller {
 		}
 		
 		$authorize = $this->authorization->getAuthorize($posId);
+		$authorize['username'] = $user;
 		$this->session->set_userdata('userSession', $authorize);
 		
 // 		TODO redirect to your home page after authentication successfully
 // 		redirect('your_controller');
-		redirect('admin');
+		redirect('admin/user');
 	}
 	
 	public function logout(){

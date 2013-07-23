@@ -62,6 +62,9 @@
 html {
 	overflow-y: scroll;
 }
+.hide{
+	display: none;
+}
 </style>
 </head>
 <body>

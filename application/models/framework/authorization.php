@@ -35,7 +35,7 @@ class Authorization extends CI_Model {
 		}
 		$queryPermission = $this->db->get('rts_role_permission');
 		
-		$this->db->select('controller');
+		$this->db->select('permission_id, controller');
 		$isFirst = true;
 		foreach($queryPermission->result() as $row){
 			if($isFirst){
@@ -45,11 +45,28 @@ class Authorization extends CI_Model {
 				$this->db->or_where('permission_id', $row->permission_id);
 			}
 		}
+		$this->db->order_by('sorting', 'asc');
 		$queryController = $this->db->get('mst_permission');
 		$i = 0;
 		foreach($queryController->result() as $row){
-			$authorize[$i++] = $row->controller;
+			$permission[$i] = $row->permission_id;
+			$controller[$i++] = $row->controller;
 		}
+		$authorize['controller'] = $controller;
+		
+		$isFirst = true;
+		foreach($permission as $row){
+			if($isFirst){
+				$this->db->where('permission_id', $row);
+				$isFirst = false;
+			} else {
+				$this->db->or_where('permission_id', $row);
+			}
+		}
+		$this->db->order_by('menu_id', 'asc');
+		$queryMenu = $this->db->get('mst_menu');
+		
+		$authorize['menu'] = $queryMenu->result();
 		return $authorize;
 	}
 	
@@ -60,6 +77,23 @@ class Authorization extends CI_Model {
 		} else {
 			return false;
 		}
+	}
+	
+	function changePassword($oldpassword, $newpassword){
+		$authorize = $this->session->userdata('userSession');
+		$username = $authorize['username'];
+		$posId = $this->getAuthenticate($username, $oldpassword);
+		if($posId == 0){
+			$returnMessage['message'] = 'Current password is invalid';
+			$returnMessage['type'] = 'error';
+			return $returnMessage;
+		}
+		
+		$this->db->update('mst_user', array('password' => sha1($newpassword)), array('username' => $username));
+		
+		$returnMessage['message'] = 'Change password successfully';
+		$returnMessage['type'] = 'success';
+		return $returnMessage;
 	}
 	
 }

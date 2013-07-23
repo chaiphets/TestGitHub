@@ -52,7 +52,6 @@ class CI_Controller {
 		
 		log_message ( 'debug', "Controller Class Initialized" );
 		
-		
 		//add by Chaiphet S. Check Authorization
 		$authorize = $this->session->userdata('userSession');
 		if($this->authorization->checkAuthorize(get_class($this))){
@@ -61,7 +60,7 @@ class CI_Controller {
 				$msg .= '<br>Please <a href="'.site_url('authentication').'">log in</a>';
 				show_error($msg, 501);
 			} else {
-				if(!in_array(get_class($this), $authorize)){
+				if(!in_array(get_class($this), $authorize['controller'])){
 					show_error('Status 502: You have no authorize to access '.get_class($this), 502);
 				}
 			}
@@ -85,7 +84,13 @@ class CI_Controller {
 		$header ['title'] = 'PHP Rabbiters Framework';
 		if ($this->session->userdata ( 'hmsg' ))
 			$header ['hmsg'] = $this->session->userdata ( 'hmsg' );
+		
+		//generate menu
+		$authorize = $this->session->userdata('userSession');
+		$menu['menu'] = $authorize['menu'];
+		
 		$this->load->view ( 'framework/header', $header );
+		$this->load->view ( 'framework/menu', $menu);
 		$this->load->view ( $content, $data );
 		$this->load->view ( 'framework/footer' );
 		
