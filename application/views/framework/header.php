@@ -65,6 +65,24 @@ html {
 .hide{
 	display: none;
 }
+
+.submenu p{
+	padding: 0.25em 0.5em;
+	border-radius: 4px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	//line-height: 2.5em;
+	cursor: pointer;
+}
+.submenu p:hover{
+	background: #ddd;
+}
+.submenu a{
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>

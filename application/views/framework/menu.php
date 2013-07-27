@@ -2,11 +2,12 @@
 	function doNothing(){}
 </script>
 
-<?php if($menu != null){?>
+<?php if($this->session->userdata('userSession') != null):?>
 <div class="container">
 	
 	<div class="row padded blue">
-		<div class="three fourths">
+		<div class="two fourths">
+			<?php if($menu != null){?>
 			<nav class="inline nav menu">
 				<ul>
 					<?php 	for($i=0;$i<sizeof($menu);$i++){
@@ -29,7 +30,13 @@
 							}?>
 				</ul>
 			</nav>
+			<?php }?>
 		</div>
+		
+		<div class="one fourths align-right">
+			<h2>Log in as <?=$this->session->userdata('userSession')['username']?></h2>
+		</div>
+		
 		<div class="one fourths align-right">
 			<?=form_open('authentication/logout')?>
 				<input type="submit" value="Logout">
@@ -38,4 +45,4 @@
 	</div>
 	
 </div>
-<?php } ?>
+<?php endif;?>

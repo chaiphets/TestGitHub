@@ -2,7 +2,13 @@
 class Authentication extends CI_Controller {
 	
 	public function index(){
-		$this->loadView('framework/login');
+		if($this->session->userdata('userSession') == null){
+			$this->loadView('framework/login');
+		} else {
+			//TODO redirect to your home page after authentication successfully
+			//redirect('your_controller');
+			redirect('admin/user');
+		}
 	}
 	
 	public function login(){

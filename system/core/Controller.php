@@ -60,7 +60,7 @@ class CI_Controller {
 				$msg .= '<br>Please <a href="'.site_url('authentication').'">log in</a>';
 				show_error($msg, 501);
 			} else {
-				if(!in_array(get_class($this), $authorize['controller'])){
+				if(!isset($authorize['controller']) || $authorize['controller'] == null || !in_array(get_class($this), $authorize['controller'])){
 					show_error('Status 502: You have no authorize to access '.get_class($this), 502);
 				}
 			}

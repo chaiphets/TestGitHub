@@ -20,53 +20,38 @@ class Authorization extends CI_Model {
 	}
 	
 	function getAuthorize($posId){
-		$this->db->select('role_id');
-		$queryRole = $this->db->get_where('rts_position_role', array('position_id'=>$posId));
+		$this->db->select('mst_permission.permission_id, mst_permission.controller');
+		$this->db->from('rts_position_role');
+		$this->db->join('rts_role_permission', 'rts_position_role.role_id = rts_role_permission.role_id');
+		$this->db->join('mst_permission', 'mst_permission.permission_id = rts_role_permission.permission_id');
+		$this->db->where('rts_position_role.position_id', $posId);
+		$queryController = $this->db->get();
 		
-		$this->db->select('permission_id');
-		$isFirst = true;
-		foreach($queryRole->result() as $row){
-			if($isFirst){
-				$this->db->where('role_id', $row->role_id);
-				$isFirst = false;
-			} else {
-				$this->db->or_where('role_id', $row->role_id);
-			}
-		}
-		$queryPermission = $this->db->get('rts_role_permission');
-		
-		$this->db->select('permission_id, controller');
-		$isFirst = true;
-		foreach($queryPermission->result() as $row){
-			if($isFirst){
-				$this->db->where('permission_id', $row->permission_id);
-				$isFirst = false;
-			} else {
-				$this->db->or_where('permission_id', $row->permission_id);
-			}
-		}
-		$this->db->order_by('sorting', 'asc');
-		$queryController = $this->db->get('mst_permission');
 		$i = 0;
+		$controller = null;
 		foreach($queryController->result() as $row){
 			$permission[$i] = $row->permission_id;
 			$controller[$i++] = $row->controller;
 		}
 		$authorize['controller'] = $controller;
 		
-		$isFirst = true;
-		foreach($permission as $row){
-			if($isFirst){
-				$this->db->where('permission_id', $row);
-				$isFirst = false;
-			} else {
-				$this->db->or_where('permission_id', $row);
+		if($controller != null){
+			$isFirst = true;
+			foreach($permission as $row){
+				if($isFirst){
+					$this->db->where('permission_id', $row);
+					$isFirst = false;
+				} else {
+					$this->db->or_where('permission_id', $row);
+				}
 			}
+			$this->db->order_by('menu_id', 'asc');
+			$queryMenu = $this->db->get('mst_menu');
+			$authorize['menu'] = $queryMenu->result();
+		} else {
+			$authorize['menu'] = null;
 		}
-		$this->db->order_by('menu_id', 'asc');
-		$queryMenu = $this->db->get('mst_menu');
 		
-		$authorize['menu'] = $queryMenu->result();
 		return $authorize;
 	}
 	
