@@ -29,6 +29,7 @@ class Authentication extends CI_Controller {
 		
 		$authorize = $this->authorization->getAuthorize($posId);
 		$authorize['username'] = $user;
+		$this->session->unset_userdata('userSession');
 		$this->session->set_userdata('userSession', $authorize);
 		
 // 		TODO redirect to your home page after authentication successfully

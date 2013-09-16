@@ -2,20 +2,20 @@
 	
 <div class="row">
 	<div class="one fourths padded border">
-		<div class="row"><h1>User</h1></div>
+		<div class="row"><h1>Permission</h1></div>
 		<div class="row submenu">
-			<div class="two thirds"><a href="<?=site_url('admin/user/search')?>"><p>Search user</p></a></div>
-			<div class="two thirds"><a href="<?=site_url('admin/user/add')?>"><p>Create new user</p></a></div>
+			<div class="two thirds"><a href="<?=site_url('admin/permission/search')?>"><p>Search permission</p></a></div>
+			<div class="two thirds"><a href="<?=site_url('admin/permission/add')?>"><p>Create new permission</p></a></div>
 		</div>
 	</div>
 	
 	<div class="three fourths padded border-left">
 		<div class="row" id="searchForm">
-			<h2>Search User</h2>
-			<?=form_open('admin/user/search')?>
+			<h2>Search Permission</h2>
+			<?=form_open('admin/permission/search')?>
 				<div class="row padded">
-					<label class="one fourths align-right">Username : </label>
-					<div class="one fourths"><input type="text" name="username" value="<?=isset($username)?$username:""?>" /></div>
+					<label class="one fourths align-right">Permission : </label>
+					<div class="one fourths"><input type="text" name="permission" value="<?=isset($permission)?$permission:""?>" /></div>
 				</div>
 				<div class="row padded">
 					<div class="one fourths skip-one"><input type="submit" value="Search" /></div>
@@ -29,24 +29,24 @@
 			<h2>Result</h2>
 			<div class="three fourths centered">
 				<?php $attr = array('id'=>'addEdit');?>
-				<?=form_open('admin/user/edit', $attr)?>
-				<input type="hidden" name="username" id="username" />
+				<?=form_open('admin/permission/edit', $attr)?>
+				<input type="hidden" name="permission_id" id="permission_id" />
 				<table>
 					<thead>
 						<tr>
 							<th></th>
-							<th>Username</th>
-							<th>Position</th>
-							<th>Active</th>
+							<th>ID</th>
+							<th>Permission</th>
+							<th>Controller</th>
 						</tr>
 					</thead>
 					<tbody>
 			<?php	foreach($result as $row){?>
 						<tr>
-							<td><a href="javascript:$('#username').val('<?=$row->username?>');$('#addEdit').submit();"><?=($row->username!='admin')?'edit':'edit admin'?></a></td>
-							<td><?=$row->username?></td>
-							<td><?=$row->position_name?></td>
-							<td><?=($row->enable_flag==1)?'True':'False'?></td>
+							<td><a href="javascript:$('#permission_id').val('<?=$row->permission_id?>');$('#addEdit').submit();"><?=($row->permission_name!='admin')?'edit':'edit admin'?></a></td>
+							<td><?=$row->permission_id?></td>
+							<td><?=$row->permission_name?></td>
+							<td><?=$row->controller?></td>
 						</tr>
 			<?php 	}?>
 					</tbody>

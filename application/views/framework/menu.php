@@ -12,18 +12,18 @@
 				<ul>
 					<?php 	for($i=0;$i<sizeof($menu);$i++){
 								$m = $menu[$i];
-								if($m->menu_id % 100 == 0){?>
-									<li <?=($m->path=='')?"class=\"menu\"":""?>>
+								if($m->menu_order % 100 == 0){?>
+									<li <?=($m->showSubMenu==1)?"class=\"menu\"":""?>>
 										<a href="<?=site_url($m->path)?>"><?=$m->menu_name?></a>
-					<?php			if(($i+1)<sizeof($menu) && $menu[$i+1]->menu_id % 100 == 0){?>
+					<?php			if(($i+1)<sizeof($menu) && $menu[$i+1]->menu_order % 100 == 0){?>
 										</li>
 					<?php 			}?>
 					<?php		} else {
-									if($i!=0 && $menu[$i-1]->menu_id % 100 == 0){?>
+									if($i!=0 && $menu[$i-1]->menu_order % 100 == 0){?>
 										<ul>
 					<?php			}?>
 									<li><a href="<?=site_url($m->path)?>"><?=$m->menu_name?></a></li>
-					<?php			if($i+1==sizeof($menu) || $menu[$i+1]->menu_id % 100 == 0){?>
+					<?php			if($i+1==sizeof($menu) || $menu[$i+1]->menu_order % 100 == 0){?>
 										</ul>
 					<?php 			}
 								}
@@ -46,3 +46,4 @@
 	
 </div>
 <?php endif;?>
+<?php //=var_dump($this->session->all_userdata())?>

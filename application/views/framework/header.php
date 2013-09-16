@@ -15,8 +15,10 @@
 <script src="<?=base_url('extlib/js/libs/modernizr-2.6.2.min.js')?>"></script>
 <!-- jQuery -->
 <script type="text/javascript" src="<?=base_url('extlib/js/libs/jquery-1.9.1.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('extlib/js/libs/jquery-ui-1.10.3.custom.js')?>"></script>
 <!-- framework css -->
 <link type="text/css" rel="stylesheet" href="<?=base_url('extlib/css/groundwork.css')?>">
+<link type="text/css" rel="stylesheet" href="<?=base_url('extlib/css/cupertino/jquery-ui-1.10.3.custom.css')?>">
 <!--[if IE]>
     <link type="text/css" rel="stylesheet" href="<?=base_url('extlib/css/groundwork-ie.css')?>"><![endif]-->
 <!--[if lt IE 9]>
@@ -82,6 +84,10 @@ html {
 .submenu a{
 	text-decoration: none;
 	color: black;
+}
+
+ul.sortable, ul.sortable ul{
+	list-style-type: none;
 }
 </style>
 </head>

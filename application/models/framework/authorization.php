@@ -45,7 +45,7 @@ class Authorization extends CI_Model {
 					$this->db->or_where('permission_id', $row);
 				}
 			}
-			$this->db->order_by('menu_id', 'asc');
+			$this->db->order_by('menu_order', 'asc');
 			$queryMenu = $this->db->get('mst_menu');
 			$authorize['menu'] = $queryMenu->result();
 		} else {

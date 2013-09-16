@@ -2,20 +2,20 @@
 	
 <div class="row">
 	<div class="one fourths padded border">
-		<div class="row"><h1>User</h1></div>
+		<div class="row"><h1>Role</h1></div>
 		<div class="row submenu">
-			<div class="two thirds"><a href="<?=site_url('admin/user/search')?>"><p>Search user</p></a></div>
-			<div class="two thirds"><a href="<?=site_url('admin/user/add')?>"><p>Create new user</p></a></div>
+			<div class="two thirds"><a href="<?=site_url('admin/role/search')?>"><p>Search role</p></a></div>
+			<div class="two thirds"><a href="<?=site_url('admin/role/add')?>"><p>Create new role</p></a></div>
 		</div>
 	</div>
 	
 	<div class="three fourths padded border-left">
 		<div class="row" id="searchForm">
-			<h2>Search User</h2>
-			<?=form_open('admin/user/search')?>
+			<h2>Search Role</h2>
+			<?=form_open('admin/role/search')?>
 				<div class="row padded">
-					<label class="one fourths align-right">Username : </label>
-					<div class="one fourths"><input type="text" name="username" value="<?=isset($username)?$username:""?>" /></div>
+					<label class="one fourths align-right">Role : </label>
+					<div class="one fourths"><input type="text" name="role" value="<?=isset($role)?$role:""?>" /></div>
 				</div>
 				<div class="row padded">
 					<div class="one fourths skip-one"><input type="submit" value="Search" /></div>
@@ -29,24 +29,24 @@
 			<h2>Result</h2>
 			<div class="three fourths centered">
 				<?php $attr = array('id'=>'addEdit');?>
-				<?=form_open('admin/user/edit', $attr)?>
-				<input type="hidden" name="username" id="username" />
+				<?=form_open('admin/role/edit', $attr)?>
+				<input type="hidden" name="role_id" id="role_id" />
 				<table>
 					<thead>
 						<tr>
 							<th></th>
-							<th>Username</th>
-							<th>Position</th>
-							<th>Active</th>
+							<th>ID</th>
+							<th>Role</th>
+							<th>Description</th>
 						</tr>
 					</thead>
 					<tbody>
 			<?php	foreach($result as $row){?>
 						<tr>
-							<td><a href="javascript:$('#username').val('<?=$row->username?>');$('#addEdit').submit();"><?=($row->username!='admin')?'edit':'edit admin'?></a></td>
-							<td><?=$row->username?></td>
-							<td><?=$row->position_name?></td>
-							<td><?=($row->enable_flag==1)?'True':'False'?></td>
+							<td><a href="javascript:$('#role_id').val('<?=$row->role_id?>');$('#addEdit').submit();"><?=($row->role_name!='admin')?'edit':'edit admin'?></a></td>
+							<td><?=$row->role_id?></td>
+							<td><?=$row->role_name?></td>
+							<td><?=$row->role_description?></td>
 						</tr>
 			<?php 	}?>
 					</tbody>

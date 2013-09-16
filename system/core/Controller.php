@@ -72,27 +72,27 @@ class CI_Controller {
 	
 	// add by Chaiphet S.
 	public function addHeaderMsg($msg, $type) {
-		if ($this->session->userdata ( 'hmsg' ))
-			$hmsg = $this->session->userdata ( 'hmsg' );
+		if($this->session->userdata('hmsg'))
+			$hmsg = $this->session->userdata('hmsg');
 		$hmsg [] = array (
 				'type' => $type,
 				'message' => $msg 
 		);
-		$this->session->set_userdata ( 'hmsg', $hmsg );
+		$this->session->set_userdata('hmsg', $hmsg);
 	}
 	public function loadView($content, $data = null) {
 		$header ['title'] = 'PHP Rabbiters Framework';
-		if ($this->session->userdata ( 'hmsg' ))
-			$header ['hmsg'] = $this->session->userdata ( 'hmsg' );
+		if ($this->session->userdata ('hmsg'))
+			$header ['hmsg'] = $this->session->userdata('hmsg');
 		
 		//generate menu
 		$authorize = $this->session->userdata('userSession');
 		$menu['menu'] = $authorize['menu'];
 		
-		$this->load->view ( 'framework/header', $header );
-		$this->load->view ( 'framework/menu', $menu);
-		$this->load->view ( $content, $data );
-		$this->load->view ( 'framework/footer' );
+		$this->load->view('framework/header', $header);
+		$this->load->view('framework/menu', $menu);
+		$this->load->view($content, $data);
+		$this->load->view('framework/footer');
 		
 		$this->session->unset_userdata ( 'hmsg' );
 	}
